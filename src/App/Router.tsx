@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Header, Navigation } from './Components/Common';
 import { Posts, Post, NotFound } from './Components/Pages';
 import { IPost } from './Interfaces';
-import { getPosts } from './Services/PostService';
+import { getPosts, deletePost } from './Services/PostService';
 
 interface IAppState {
     posts: IPost[];
@@ -33,7 +33,10 @@ class Router extends Component<{}, IAppState> {
                                 path="/"
                                 render={() => {
                                     return (
-                                        <Posts posts={this.state.posts} />
+                                        <Posts
+                                            posts={this.state.posts}
+                                            deletePost={this.deletePost}
+                                        />
                                     );
                                 }}
                             />
@@ -55,6 +58,13 @@ class Router extends Component<{}, IAppState> {
                 </div>
             </BrowserRouter>
         );
+    }
+
+    deletePost = async (id: number) => {
+        if (await deletePost(id)) {
+            const posts = this.state.posts.filter((post: IPost) => post.id !== id);
+            this.setState({ posts });
+        }
     }
 }
 

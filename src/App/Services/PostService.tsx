@@ -13,3 +13,15 @@ export const getPosts = () => {
             });
     });
 };
+
+export const deletePost = (id: number) => {
+    return new Promise<boolean>((resolve, reject) => {
+        axios.delete(`${Constants.API_URL}/${id}`)
+            .then(() => {
+                resolve(true);
+            }).catch((error) => {
+                console.log(error);
+                reject(false);
+            });
+    });
+};

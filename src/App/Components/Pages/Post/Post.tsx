@@ -7,9 +7,12 @@ interface IProps {
 }
 
 const Post = (props: IProps) => {
-    console.log(props.post);
     return (
-        <div>Post</div>
+        <div className="col-12 col-md-8">
+            <h1>{props.post.title}</h1>
+            <p>Autor: {props.post.userId}</p>
+            {props.post.body}
+        </div>
     );
 };
 
