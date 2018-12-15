@@ -7,10 +7,9 @@ interface IProps {
 }
 
 const Post = (props: IProps) => {
+    console.log(props.post);
     return (
-        <div>
-            post
-        </div>
+        <div>Post</div>
     );
 };
 

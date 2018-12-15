@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Header, Navigation } from './Components/Common';
-import { Posts } from './Components/Pages';
+import { Posts, Post, NotFound } from './Components/Pages';
 import { IPost } from './Interfaces';
 import { getPosts } from './Services/PostService';
 
-interface IProps {
+interface IAppState {
     posts: IPost[];
 }
 
-class Router extends Component<{}, IProps> {
+class Router extends Component<{}, IAppState> {
 
     state = {
         posts: []
@@ -34,7 +34,20 @@ class Router extends Component<{}, IProps> {
                                 render={() => {
                                     return (
                                         <Posts posts={this.state.posts} />
-                                    )
+                                    );
+                                }}
+                            />
+                            <Route
+                                exact
+                                path="/post/:id"
+                                render={(props) => {
+                                    const postId = Number(props.match.params.id);
+                                    const post = this.state.posts.find((item: IPost) => item.id === postId);
+                                    if (post) {
+                                        return (<Post post={post} />);
+                                    } else {
+                                        return (<NotFound />);
+                                    }
                                 }}
                             />
                         </Switch>
