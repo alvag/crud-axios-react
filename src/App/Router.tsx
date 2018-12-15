@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Header, Navigation } from './Components/Common';
-import { Posts, Post, NotFound } from './Components/Pages';
+import { Posts, Post, NotFound, CreatePost } from './Components/Pages';
 import { IPost } from './Interfaces';
 import { getPosts, deletePost } from './Services/PostService';
 
@@ -53,6 +53,8 @@ class Router extends Component<{}, IAppState> {
                                     }
                                 }}
                             />
+
+                            <Route exact path="/crear" component={CreatePost} />
                         </Switch>
                     </div>
                 </div>
