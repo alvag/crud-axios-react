@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Posts.css';
 import { IPost } from '../../../Interfaces';
+import { PostList } from '../../Modules';
 
 interface IProps {
     posts: IPost[];
@@ -9,8 +10,9 @@ interface IProps {
 class Posts extends Component<IProps> {
     render() {
         return (
-            <div>
-                <h1>Posts</h1>
+            <div className="col-012 col-md-8">
+                <h2 className="text-center">Posts</h2>
+                <PostList posts={this.props.posts} />
             </div>
         );
     }
