@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { Header } from './Components/Common';
+import { Header, Navigation } from './Components/Common';
 
 class Router extends Component {
     render() {
@@ -10,6 +10,7 @@ class Router extends Component {
                 <div className="container">
                     <div className="row justify-content-center">
                         <Header />
+                        <Navigation />
                     </div>
                 </div>
             </BrowserRouter>
