@@ -1,0 +1,33 @@
+{
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "no-duplicate-variable": true,
+        "no-unused-variable": true,
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "no-console": false,
+        "quotemark": [
+            true,
+            "single",
+            "jsx-double"
+        ],
+        "max-line-length": false,
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "jsx-no-multiline-js": false,
+        "jsx-boolean-value": false,
+        "jsx-no-lambda": false,
+        "member-access": false,
+        "ordered-imports": false
+    }
+}
