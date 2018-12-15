@@ -16,8 +16,7 @@ class CreatePost extends Component<IProps> {
         const post: IPost = {
             body: this.content.current!.value,
             title: this.title.current!.value,
-            userId: 1,
-            id: 1
+            userId: 1
         };
 
         this.props.createPost(post);

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Header, Navigation } from './Components/Common';
 import { Posts, Post, NotFound, CreatePost } from './Components/Pages';
 import { IPost } from './Interfaces';
-import { getPosts, deletePost } from './Services/PostService';
+import { getPosts, deletePost, createPost } from './Services/PostService';
 
 interface IAppState {
     posts: IPost[];
@@ -77,8 +77,18 @@ class Router extends Component<{}, IAppState> {
         }
     }
 
-    createPost = (post: IPost) => {
-        console.log(post);
+    createPost = async (post: IPost) => {
+        const postId = await createPost(post);
+        console.log(postId);
+        if (postId) {
+            // const posts = [...this.state.posts] as IPost[];
+            // posts.unshift({ ...post, id: postId });
+            // this.setState({ posts });
+
+            this.setState((prevState) => ({
+                posts: [{ ...post, id: postId }, ...prevState.posts]
+            }));
+        }
     }
 }
 

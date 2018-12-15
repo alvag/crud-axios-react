@@ -43,7 +43,7 @@ class Posts extends Component<IProps> {
                             <td>{post.title}</td>
                             <td>
                                 <Link to={`/post/${post.id}`} className="btn btn-primary">Ver</Link>
-                                <button className="btn btn-danger" onClick={() => this.props.deletePost(post.id)}>Borrar</button>
+                                <button className="btn btn-danger" onClick={() => this.props.deletePost(post.id!)}>Borrar</button>
                             </td>
                         </tr>
                     ))}

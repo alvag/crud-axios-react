@@ -17,11 +17,23 @@ export const getPosts = () => {
 export const deletePost = (id: number) => {
     return new Promise<boolean>((resolve, reject) => {
         axios.delete(`${Constants.API_URL}/${id}`)
-            .then(() => {
-                resolve(true);
-            }).catch((error) => {
+            .then(() => resolve(true))
+            .catch((error) => {
                 console.log(error);
                 reject(false);
+            });
+    });
+};
+
+export const createPost = (post: IPost) => {
+    return new Promise<number>((resolve, reject) => {
+        axios.post(Constants.API_URL, { body: post })
+            .then((response) => {
+                resolve(response.data.id);
+            })
+            .catch((error) => {
+                console.log(error);
+                reject();
             });
     });
 };
