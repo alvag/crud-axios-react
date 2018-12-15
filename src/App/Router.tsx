@@ -54,7 +54,15 @@ class Router extends Component<{}, IAppState> {
                                 }}
                             />
 
-                            <Route exact path="/crear" component={CreatePost} />
+                            <Route
+                                exact
+                                path="/crear"
+                                render={() => {
+                                    return (
+                                        <CreatePost createPost={this.createPost} />
+                                    );
+                                }}
+                            />
                         </Switch>
                     </div>
                 </div>
@@ -67,6 +75,10 @@ class Router extends Component<{}, IAppState> {
             const posts = this.state.posts.filter((post: IPost) => post.id !== id);
             this.setState({ posts });
         }
+    }
+
+    createPost = (post: IPost) => {
+        console.log(post);
     }
 }
 

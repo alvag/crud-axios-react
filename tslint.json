@@ -28,6 +28,7 @@
         "jsx-boolean-value": false,
         "jsx-no-lambda": false,
         "member-access": false,
-        "ordered-imports": false
+        "ordered-imports": false,
+        "object-literal-sort-keys": false
     }
 }
