@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 
-import './CreatePost.css';
 import { IPost } from '../../../Interfaces';
 import { PostForm } from '../../Modules';
 
 interface IProps {
     createUpdatePost: (post: IPost) => Promise<boolean>;
+    post: IPost;
+    postId: number;
 }
 
-class CreatePost extends Component<IProps> {
-
-    post: IPost = { title: '', body: '', userId: 1 };
+class EditPost extends Component<IProps> {
 
     sendData = (data: any): Promise<boolean> => {
         const post: IPost = {
-            ...this.post,
+            ...this.props.post,
             ...data
         };
         return this.props.createUpdatePost(post);
@@ -23,11 +22,11 @@ class CreatePost extends Component<IProps> {
     render() {
         return (
             <div className="col-8">
-                <PostForm post={this.post} sendData={this.sendData} />
+                <PostForm post={this.props.post} sendData={this.sendData} />
             </div>
 
         );
     }
 }
 
-export default CreatePost;
+export default EditPost;

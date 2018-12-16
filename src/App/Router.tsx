@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { Header, Navigation } from './Components/Common';
-import { Posts, Post, NotFound, CreatePost } from './Components/Pages';
+import { Posts, Post, NotFound, CreatePost, EditPost } from './Components/Pages';
 import { IPost } from './Interfaces';
-import { getPosts, deletePost, createPost } from './Services/PostService';
+import { getPosts, deletePost, createPost, updatePost } from './Services/PostService';
 
 interface IAppState {
     posts: IPost[];
@@ -53,14 +53,29 @@ class Router extends Component<{}, IAppState> {
                                     }
                                 }}
                             />
-
                             <Route
                                 exact
                                 path="/crear"
                                 render={() => {
                                     return (
-                                        <CreatePost createPost={this.createPost} />
+                                        <CreatePost createUpdatePost={this.createUpdatePost} />
                                     );
+                                }}
+                            />
+                            <Route
+                                exact
+                                path="/editar/:id"
+                                render={(props) => {
+                                    const postId = Number(props.match.params.id);
+                                    const post = this.state.posts.find((item: IPost) => item.id === postId);
+                                    if (post) {
+                                        return (
+                                            <EditPost post={post} postId={postId} createUpdatePost={this.createUpdatePost} />
+                                        );
+                                    } else {
+                                        return null;
+                                    }
+
                                 }}
                             />
                         </Switch>
@@ -77,18 +92,33 @@ class Router extends Component<{}, IAppState> {
         }
     }
 
-    createPost = async (post: IPost) => {
-        const postId = await createPost(post);
-        console.log(postId);
-        if (postId) {
-            // const posts = [...this.state.posts] as IPost[];
-            // posts.unshift({ ...post, id: postId });
-            // this.setState({ posts });
+    createUpdatePost = async (post: IPost): Promise<boolean> => {
 
-            this.setState((prevState) => ({
-                posts: [{ ...post, id: postId }, ...prevState.posts]
-            }));
-        }
+        const postId = post.id ? await updatePost(post) : await createPost(post);
+
+        return new Promise<boolean>((resolve, reject) => {
+            if (postId) {
+                resolve(true);
+                const posts = [...this.state.posts] as IPost[];
+
+                const index = posts.findIndex((item) => item.id === postId);
+                if (index < 0) {
+                    posts.unshift({ ...post, id: postId });
+                } else {
+                    posts[index] = post;
+                }
+
+                this.setState({ posts });
+
+                // this.setState((prevState) => ({
+                //     posts: [{ ...post, id: response }, ...prevState.posts]
+                // }));
+
+            } else {
+                reject(false);
+            }
+        });
+
     }
 }
 
